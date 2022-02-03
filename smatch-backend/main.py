@@ -194,8 +194,16 @@ visualization_queries = {
     "providers": "SELECT count(*), provider FROM courselist WHERE provider IS NOT NULL GROUP BY provider ORDER BY count DESC LIMIT 20",
     "categories": "SELECT count(*), coalesce(category, 'Other') category FROM courselist GROUP BY category ORDER BY count DESC LIMIT 20",
     "levels": "SELECT count(*), level FROM courselist GROUP BY level ORDER BY count DESC",
-    "duration": "SELECT count(*), duration FROM courselist WHERE duration IS NOT NULL GROUP BY duration ORDER BY count DESC",
-    "price": "SELECT count(*), price FROM courselist WHERE price IS NOT NULL GROUP BY price ORDER BY count DESC"
+    "duration_-": "SELECT count(*), duration FROM courselist WHERE duration IS NOT NULL GROUP BY duration ORDER BY count DESC",
+    "duration_Beginner": "SELECT count(*), duration FROM courselist WHERE duration IS NOT NULL AND level = 'Beginner' GROUP BY duration ORDER BY count DESC",
+    "duration_Intermediate": "SELECT count(*), duration FROM courselist WHERE duration IS NOT NULL AND level = 'Intermediate' GROUP BY duration ORDER BY count DESC",
+    "duration_Advanced": "SELECT count(*), duration FROM courselist WHERE duration IS NOT NULL AND level = 'Advanced' GROUP BY duration ORDER BY count DESC",
+    "duration_All": "SELECT count(*), duration FROM courselist WHERE duration IS NOT NULL AND level = 'All' GROUP BY duration ORDER BY count DESC",
+    "price_-": "SELECT count(*), price FROM courselist WHERE price IS NOT NULL GROUP BY price ORDER BY count DESC",
+    "price_Beginner": "SELECT count(*), price FROM courselist WHERE price IS NOT NULL AND level = 'Beginner' GROUP BY price ORDER BY count DESC",
+    "price_Intermediate": "SELECT count(*), price FROM courselist WHERE price IS NOT NULL AND level = 'Intermediate' GROUP BY price ORDER BY count DESC",
+    "price_Advanced": "SELECT count(*), price FROM courselist WHERE price IS NOT NULL AND level = 'Advanced' GROUP BY price ORDER BY count DESC",
+    "price_All": "SELECT count(*), price FROM courselist WHERE price IS NOT NULL AND level = 'All' GROUP BY price ORDER BY count DESC"
 };
 
 @app.route('/visualization/<name>')

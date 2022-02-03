@@ -203,9 +203,9 @@ function CategoriesVisualization() {
 
 function DurationVisualization() {
   const [nData, setNData] = useState(null);
-  const [selectedLevel, setSelectedLevel] = useState(null);
+  const [selectedLevel, setSelectedLevel] = useState("-");
   const levelData = useVisualization("levels");
-  const data = useVisualization("duration");
+  const data = useVisualization(`duration_${selectedLevel}`);
 
   useEffect(() => {
     if (data) {
@@ -227,8 +227,9 @@ function DurationVisualization() {
         <div className="mb-8">
           <label for="level" className="block text-sm font-medium text-gray-200">Level</label>
           <select id="level" name="level" value={selectedLevel} onChange={(e) => setSelectedLevel(e.target.value)} className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-            { levelData.map((level) => (
-              <option key={level.level} value={level.level}>{ level.level } ({ level.count } courses)</option>
+            <option value="-">All</option>
+            { levelData.filter((level) => level.level).map((level) => (
+              <option key={level.level} value={level.level}>{ level.level == "All" ? "Other" : level.level } ({ level.count } courses)</option>
             )) }
           </select>
         </div>
@@ -268,7 +269,9 @@ function DurationVisualization() {
 function PriceVisualization() {
   const [nData, setNData] = useState(null);
   const [freeData, setFreeData] = useState(null);
-  const data = useVisualization("price");
+  const [selectedLevel, setSelectedLevel] = useState("-");
+  const levelData = useVisualization("levels");
+  const data = useVisualization(`price_${selectedLevel}`);
 
   useEffect(() => {
     if (data) {
@@ -291,6 +294,18 @@ function PriceVisualization() {
 
   return (
     <div>
+      { levelData ?
+        <div className="mb-8">
+          <label for="level" className="block text-sm font-medium text-gray-200">Level</label>
+          <select id="level" name="level" value={selectedLevel} onChange={(e) => setSelectedLevel(e.target.value)} className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+            <option value="-">All</option>
+            { levelData.filter((level) => level.level).map((level) => (
+              <option key={level.level} value={level.level}>{ level.level == "All" ? "Other" : level.level } ({ level.count } courses)</option>
+            )) }
+          </select>
+        </div>
+        :<></>
+      }
       { nData && freeData ?
         <>
           <PieChart
