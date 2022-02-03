@@ -5,7 +5,7 @@ import { ReactComponent as CloseIcon } from "./icons/close-circle.svg";
 import { ReactComponent as CheckIcon } from "./icons/check-circle.svg";
 
 import Title from "./components/Title";
-import { useGenerateClusters } from "./hooks";
+import { useGenerateClusters, useSendSwipedTerms } from "./hooks";
 import { selectTerms } from "./textProcessing";
 import MatchContext from "./MatchContext";
 
@@ -102,7 +102,7 @@ function createClustersObject(clusters) {
 }
 
 export default function Match() {
-  const transitionDuration = 10;
+  const transitionDuration = 500;
 
   const { topic } = useParams();
 
@@ -119,6 +119,8 @@ export default function Match() {
   const generateClusters = useGenerateClusters();
   const [ clusters, setClusters ] = useState();
   const [ terms, setTerms ] = useState();
+  const [ swipedTerms, setSwipedTerms ] = useState([]);
+  const sendSwipedTerms = useSendSwipedTerms();
 
   const { pushMatch } = useContext(MatchContext);
   const navigate = useNavigate();
@@ -157,6 +159,9 @@ export default function Match() {
 
   const swipeRight = () => {
     setSwipeState(1);
+    if (groups[currentGroup].title == "Recommendation") {
+      setSwipedTerms([ ...swipedTerms, groups[currentGroup].questions[currentQuestion].text ]);
+    }
     appendAnswers(groups[currentGroup].questions[currentQuestion].value);
     setSwipeDirection("");
     nextQuestion();
@@ -215,6 +220,7 @@ export default function Match() {
       const ties = getTies(votes);
       if (ties.length == 1) {
         pushMatch(clusters[ties[0]]);
+        sendSwipedTerms({ terms: swipedTerms });
         navigate('/matches');
         return;
       }

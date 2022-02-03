@@ -65,7 +65,7 @@ def new_user():
     cur.close()
     return jsonify({ 'username': username }), 201
 
-def generate_auth_token(user, expiration = 600):
+def generate_auth_token(user, expiration = 600000):
     s = Serializer(app.config['SECRET_KEY'], expires_in = expiration)
     return s.dumps({ 'id': user.id })
 
@@ -203,7 +203,8 @@ visualization_queries = {
     "price_Beginner": "SELECT count(*), price FROM courselist WHERE price IS NOT NULL AND level = 'Beginner' GROUP BY price ORDER BY count DESC",
     "price_Intermediate": "SELECT count(*), price FROM courselist WHERE price IS NOT NULL AND level = 'Intermediate' GROUP BY price ORDER BY count DESC",
     "price_Advanced": "SELECT count(*), price FROM courselist WHERE price IS NOT NULL AND level = 'Advanced' GROUP BY price ORDER BY count DESC",
-    "price_All": "SELECT count(*), price FROM courselist WHERE price IS NOT NULL AND level = 'All' GROUP BY price ORDER BY count DESC"
+    "price_All": "SELECT count(*), price FROM courselist WHERE price IS NOT NULL AND level = 'All' GROUP BY price ORDER BY count DESC",
+    "terms": "SELECT * FROM matched_terms ORDER BY count DESC LIMIT 50"
 };
 
 @app.route('/visualization/<name>')
@@ -249,5 +250,16 @@ def get_course(id):
     course = cur.fetchone()
     cur.close()
     return jsonify(course)
+
+@app.route('/swiped_terms', methods = ['POST'])
+@auth.login_required
+def swiped_terms():
+    terms = request.json.get('terms')
+    cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+    for term in terms:
+        cur.execute('INSERT INTO matched_terms (term, count) VALUES (%s, 1) ON CONFLICT (term) DO UPDATE SET count = matched_terms.count + 1', (term,))
+    conn.commit()
+    cur.close()
+    return jsonify({}), 201
 
 app.run()

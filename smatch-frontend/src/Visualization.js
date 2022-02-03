@@ -14,19 +14,11 @@ const categories = [
   "providers",
   "categories",
   "duration",
-  "price"
+  "price",
+  "terms"
 ];
 
 export default function Visualization() {
-  // bar chart top 10
-  // - instructors
-  // - providers
-  // - category
-  //
-  // pie chart
-  // - duration grouped by level
-  // - price grouped by level
-
   const [selectedTab, setSelectedTab] = useState(categories[0]);
 
   return (
@@ -81,6 +73,8 @@ function TabVisualization({ category }) {
       return <DurationVisualization />;
     case "price":
       return <PriceVisualization />;
+    case "terms":
+      return <TermsVisualization />;
     default:
       return <></>;
   }
@@ -354,6 +348,41 @@ function PriceVisualization() {
           </PieChart>
         </>
       : <></> }
+    </div>
+  );
+}
+
+function TermsVisualization() {
+  const data = useVisualization("terms");
+
+  return (
+    <div>
+      { data ?
+        <BarChart 
+          width={600} 
+          height={300} 
+          data={data} 
+          layout="vertical"
+          margin={{top: 5, right: 30, left: 20, bottom: 5}}
+        >
+          <XAxis type="number" allowDecimals={false} />
+          <YAxis type="category" dataKey="term" tick={{ fill: '#E5E7EB' }} />
+          <Tooltip />
+          <Legend verticalAlign="top" height={36} />
+          <Bar dataKey="count" fill="#8884d8" name="# terms swiped right">
+            {
+              data.map((entry, index) => (
+                <Cell
+                  key={`slice-${index}`}
+                  fill={colors[index % 10]}
+                  //fillOpacity={this.state.activeIndex === index ? 1 : 0.25}
+                />
+              ))
+            }
+          </Bar>
+        </BarChart>
+        : <></>
+      }
     </div>
   );
 }

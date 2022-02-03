@@ -171,3 +171,9 @@ export function useCourse(id) {
 
   return jsonData;
 }
+
+export function useSendSwipedTerms() {
+  const sendRequest = useAPIPost("swiped_terms");
+
+  return sendRequest;
+}
