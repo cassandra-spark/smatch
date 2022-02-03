@@ -31,7 +31,7 @@ ReactDOM.render(
             <Route path="match/:topic" element={<Match />} />
             <Route path="matches" element={<Matches />} />
             <Route path="choose" element={<Choose />} />
-            <Route path="course" element={<Course />} />
+            <Route path="course/:id" element={<Course />} />
             <Route path="forum" element={<Forum />} />
             <Route path="forum/new" element={<NewThread />} />
             <Route path="forum/:thread_id" element={<Thread />} />

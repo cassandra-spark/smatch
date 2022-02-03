@@ -126,7 +126,7 @@ export function useCreateReply(thread_id) {
   return sendRequest;
 }
 
-export function useUserCount(id) {
+export function useUserCount() {
   const { response } = useAPIGet("user_count");
   const { jsonData } = useAPIJson(response);
 
@@ -157,4 +157,17 @@ export function useUpdateUsername() {
   const sendRequest = useAPIPost("current_user");
 
   return sendRequest;
+}
+
+export function useGenerateClusters() {
+  const sendRequest = useAPIPost("generate_clusters");
+
+  return sendRequest;
+}
+
+export function useCourse(id) {
+  const { response, refresh } = useAPIGet(`course/${id}`);
+  const { jsonData } = useAPIJson(response);
+
+  return jsonData;
 }

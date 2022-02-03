@@ -16,8 +16,8 @@ export default function Home() {
           <div className="bg-gray-900 px-4 py-2 rounded-xl flex items-center gap-3">
             <NavigationItem icon={<CogIcon />} to="/settings" />
             <NavigationItem icon={<HomeIcon />} to="/" />
-            <NavigationItem icon={<ViewListIcon />} to="/choose" />
-            <NavigationItem icon={<MessageIcon />} to="/forum" badge="2" />
+            <NavigationItem icon={<ViewListIcon />} to="/matches" />
+            <NavigationItem icon={<MessageIcon />} to="/forum" />
             <NavigationItem icon={<ChartBarIcon />} to="/visualization" />
           </div>
         </div>

@@ -9,6 +9,8 @@ from flask_migrate import Migrate
 import psycopg2
 import psycopg2.extras
 
+from recommender import make_clusters
+
 conn = psycopg2.connect("host=35.225.226.208 dbname=course-list user=postgres password=1234567890")
 
 app = Flask(__name__)
@@ -78,18 +80,15 @@ def login():
     return jsonify({ "token": generate_auth_token(user).decode('ascii') })
 
 def verify_auth_token(token):
-    user = get_user_by_id(8)
+    s = Serializer(app.config['SECRET_KEY'])
+    try:
+        data = s.loads(token)
+    except SignatureExpired:
+        return None # valid token, but expired
+    except BadSignature:
+        return None # invalid token
+    user = get_user_by_id(data['id'])
     return user
-
-    # s = Serializer(app.config['SECRET_KEY'])
-    # try:
-        # data = s.loads(token)
-    # except SignatureExpired:
-        # return None # valid token, but expired
-    # except BadSignature:
-        # return None # invalid token
-    # user = get_user_by_id(data['id'])
-    # return user
 
 @auth.verify_token
 def verify_token(token):
@@ -116,7 +115,16 @@ def list_topics():
 @auth.login_required
 def show_threads():
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
-    cur.execute('WITH reply_count AS (SELECT thread_id, count(id) FROM replies GROUP BY thread_id), last_reply AS (SELECT thread_id, max(created_on) FROM replies GROUP BY thread_id) SELECT threads.*, username, coalesce(reply_count.count, 0) replies, coalesce(last_reply.max, created_on) AS last_reply_on FROM threads JOIN users ON threads.user_id = users.id LEFT OUTER JOIN reply_count ON threads.id = reply_count.thread_id LEFT OUTER JOIN last_reply ON threads.id = last_reply.thread_id ORDER BY last_reply_on DESC')
+    cur.execute('''
+WITH reply_count AS (SELECT thread_id, count(id) FROM replies GROUP BY thread_id),
+     last_reply AS (SELECT thread_id, max(created_on) FROM replies GROUP BY thread_id)
+SELECT threads.*, username, coalesce(reply_count.count, 0) replies, coalesce(last_reply.max, created_on) AS last_reply_on
+    FROM threads
+    JOIN users ON threads.user_id = users.id
+    LEFT OUTER JOIN reply_count ON threads.id = reply_count.thread_id
+    LEFT OUTER JOIN last_reply ON threads.id = last_reply.thread_id
+    ORDER BY last_reply_on DESC
+    ''')
     threads = cur.fetchall()
     cur.close()
     return jsonify(threads)
@@ -157,10 +165,11 @@ def user_count():
 def new_thread():
     user = auth.current_user()
     title = request.json.get('title')
+    category = request.json.get('category')
     body = request.json.get('body')
 
     cur = conn.cursor()
-    cur.execute('INSERT INTO threads (user_id, title, body) VALUES (%s, %s, %s) RETURNING id', (user.id, title, body))
+    cur.execute('INSERT INTO threads (user_id, title, category, body) VALUES (%s, %s, %s, %s) RETURNING id', (user.id, title, category, body))
     conn.commit()
     (id,) = cur.fetchone()
     cur.close()
@@ -216,5 +225,21 @@ def update_username():
     cur.close()
 
     return {}
+
+@app.route('/generate_clusters', methods = ['POST'])
+@auth.login_required
+def generate_clusters():
+    filters = request.json
+    (clusters, terms) = make_clusters(filters)
+    return jsonify({ "clusters": clusters.to_dict('records'), "terms": terms.to_dict('records') })
+
+@app.route('/course/<id>')
+@auth.login_required
+def get_course(id):
+    cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+    cur.execute('SELECT * FROM courselist WHERE id = %s', (id,))
+    course = cur.fetchone()
+    cur.close()
+    return jsonify(course)
 
 app.run()

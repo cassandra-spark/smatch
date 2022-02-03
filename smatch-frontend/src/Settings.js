@@ -42,14 +42,14 @@ export default function Settings() {
         }
       </div>
       
-      <div className="rounded-3xl text-white bg-gray-900 px-6 py-4">
+      {/*<div className="rounded-3xl text-white bg-gray-900 px-6 py-4">
         <h3 className="text-amber-600 text-xl">Previous Matches</h3>
         <ul className="mt-2">
           <li>Russian Basic</li>
           <li>Machine Learning</li>
           <li>IT 101 for Beginners</li>
         </ul>
-      </div>
+      </div>*/}
 
       {/*<div className="rounded-3xl text-white bg-gray-900 px-6 py-4">
         <div className="flex justify-between">

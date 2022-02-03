@@ -22,7 +22,7 @@ export default function Thread() {
 
   return thread ? (
     <div className="flex flex-col items-center flex-1">
-      <Title subtitle={`by ${thread.username}`} backTo="/forum">
+      <Title subtitle={`${thread.username} • ${thread.category}`} backTo="/forum">
         {thread.title}
       </Title>
 

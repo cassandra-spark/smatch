@@ -30,7 +30,7 @@ export default function Forum() {
 
               <div className="flex flex-col h-full text-white col-span-4 h-full px-4">
                 <div className="flex-1 flex flex-col">
-                  <span>{thread.username}</span>
+                  <span>{thread.username} • {thread.category}</span>
                   <h3 className="text-2xl">{thread.title}</h3>
                 </div>
                 <div className="flex justify-between">
