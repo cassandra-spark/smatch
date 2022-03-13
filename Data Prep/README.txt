@@ -10,5 +10,5 @@ Finally, all of the courses are aggregated into one csv file with aggregate_all.
 To make sure that all courses are labeled based on their category (eg. Art, Education, Technology, etc.),
 We use labeling_process.ipynb to label the data from EDX and Coursera based on the label for Udemy
 
-As the final csv file ended up being over 56 MB, we have decided to only upload the final ones and not the raw ones that 
-we made as checkpoints between the scripts 
+As the final csv file ended up being over 56 MB, it cannot be uploaded to github and therefore are not included
+here. 
