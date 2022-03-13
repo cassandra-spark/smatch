@@ -12,6 +12,8 @@ Using the cutting-edge machine learning and recommender system technology, we ar
 the 3 major MOOCs platforms (EDX, Coursera, Udemy)
 ## project architecture
 
+![image](https://user-images.githubusercontent.com/56160802/158061096-cedeb3cd-8919-4f26-bb10-fc94f3ea3c4c.png)
+
 ## libraries/algorithms used
 - Data scraping 
         - Beautiful soup and Udemy developer API, Connections are all done in Python (pandas). 
@@ -42,6 +44,7 @@ the 3 major MOOCs platforms (EDX, Coursera, Udemy)
 
 
 ## screenshots of the visualizations
+
 
 ## how to run the project
 
