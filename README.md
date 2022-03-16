@@ -41,9 +41,35 @@ the 3 major MOOCs platforms (EDX, Coursera, Udemy)
 | Tailwind CSS | CSS framework to design the user interface |
 | D3 | Used to create the colour pallette for the visualisation |
 
+## Video Demonstration
+
+[![Smatch Demo](https://img.youtube.com/vi/0ZzlW4w0EsM/0.jpg)](https://www.youtube.com/watch?v=0ZzlW4w0EsM)
 
 ## Screenshots of the Visualizations
 
+### Instructors
+
+![# courses by instructor](./screenshots/instructors.png)
+
+### Providers
+
+![# courses by provider](./screenshots/providers.png)
+
+### Categories
+
+![# courses by category](./screenshots/categories.png)
+
+### Duration
+
+![# courses by duration](./screenshots/duration.png)
+
+### Price
+
+![# courses by price](./screenshots/price.png)
+
+### Terms
+
+![# terms swiped right](./screenshots/terms.png)
 
 ## How to use the project
 
