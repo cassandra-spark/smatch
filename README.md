@@ -45,7 +45,7 @@ the 3 major MOOCs platforms (EDX, Coursera, Udemy)
 ## Screenshots of the Visualizations
 
 
-## How to run the project
+## How to use the project
 
 FOR COURSE LEARNER:
 
@@ -61,9 +61,39 @@ FOR COURSE DEVELOPER:
 2. Go to the visualisation tab where you can see the statisitcs of available course such as how many courses are free and paid, how long do most of the courses lasts, what categories have the most courses, etc.
 3. When you are done, you can log out on the profile tab
 
-## How to deploy your project
+## How to run and deploy the project
 
-## group members
+You need to have Node.js, Yarn, Python 3, and Pip installed.
+
+First set the URL to the backend in `smatch-frontend/src/hooks.js` under `API_URL`.
+
+### Running the Frontend
+
+```
+cd smatch-frontend
+yarn
+yarn start
+```
+
+### Building and Deploying the Frontend
+
+```
+cd smatch-frontend
+yarn
+yarn build
+```
+
+Then deploy the files in `build` on a server of choice (eg Static File Server, CDN, ...).
+
+### Running the Backend
+
+```
+cd smatch-backend
+pip install -r requirements.txt
+python main.py
+```
+
+## Group Members
 - Jean Qussa
 - Nurmalita Manggali
 - Nave Wibowo
