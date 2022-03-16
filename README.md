@@ -14,7 +14,7 @@ the 3 major MOOCs platforms (EDX, Coursera, Udemy)
 
 ## Project Architecture
 
-![image](https://user-images.githubusercontent.com/56160802/158061096-cedeb3cd-8919-4f26-bb10-fc94f3ea3c4c.png)
+![Publication1](https://user-images.githubusercontent.com/56160802/158600383-05f26db1-bf20-44c7-a76b-2e18e429d41f.jpg)
 
 ## Libraries / Algorithms Used
 
