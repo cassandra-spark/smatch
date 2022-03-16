@@ -49,8 +49,8 @@ function Card({ title, classes, children }) {
 function Level({ level }) {
   return (
     <div className="flex items-end gap-2 h-16 px-4">
-      <div className={`${level == "Begniner" || level == "Intermediate" || level == "Advanced" ? "bg-amber-400" : "bg-gray-400"} flex-1 h-1/3`}></div>
-      <div className={`${level == "Begniner" || level == "Intermediate" ? "bg-amber-400" : "bg-gray-400"} flex-1 h-2/3`}></div>
+      <div className={`${level == "Beginner" || level == "Intermediate" || level == "Advanced" ? "bg-amber-400" : "bg-gray-400"} flex-1 h-1/3`}></div>
+      <div className={`${level == "Intermediate" || level == "Advanced" ? "bg-amber-400" : "bg-gray-400"} flex-1 h-2/3`}></div>
       <div className={`${level == "Advanced" ? "bg-amber-400" : "bg-gray-400"} flex-1 h-full`}></div>
     </div>
   );
