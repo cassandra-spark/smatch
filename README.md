@@ -73,7 +73,7 @@ the 3 major MOOCs platforms (EDX, Coursera, Udemy)
 
 ## How to use the project
 
-FOR COURSE LEARNER:
+### For course learner
 
 1. To run the project, first you have to log in into the login page of the application
 2. You will then be greeted by cards where you can swipe right (if you agree to the premise written on the card) or right (if you disagree)
@@ -82,7 +82,8 @@ FOR COURSE LEARNER:
 5. To connect with other learners, you can go to the forum tab where you can post a thread, read threads from other people and reply to them
 6. When you are done, you can log out on the profile tab
 
-FOR COURSE DEVELOPER:
+### For course developer
+
 1. To run the project, first you have to log in into the login page of the application
 2. Go to the visualisation tab where you can see the statisitcs of available course such as how many courses are free and paid, how long do most of the courses lasts, what categories have the most courses, etc.
 3. When you are done, you can log out on the profile tab
