@@ -92,9 +92,17 @@ the 3 major MOOCs platforms (EDX, Coursera, Udemy)
 
 You need to have Node.js, Yarn, Python 3, and Pip installed.
 
-First set the URL to the backend in `smatch-frontend/src/hooks.js` under `API_URL`.
+### Running the Database
+You need to create a new PostgreSQL database. For instruction on how to install and run PostgreSQL on your system, please see [the PostgreSQL website](https://www.postgresql.org/).
+
+Once you have created a database, you can import the database by using the following command from the root project directory (replace values within &lt; &gt; with your database parameters):
+
+```
+psql -h <HOST> -p <PORT> -U <USERNAME> -f database.sql <DATABASE>
+```
 
 ### Running the Frontend
+First set the URL to the backend in `smatch-frontend/src/hooks.js` under `API_URL`.
 
 ```
 cd smatch-frontend
@@ -113,6 +121,7 @@ yarn build
 Then deploy the files in `build` on a server of choice (eg Static File Server, CDN, ...).
 
 ### Running the Backend
+First open `smatch-backend/params.py` and change the values to reflect those you used when creating the database.
 
 ```
 cd smatch-backend

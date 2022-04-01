@@ -10,8 +10,11 @@ import psycopg2
 import psycopg2.extras
 
 from recommender import make_clusters
+from params import DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME
 
-conn = psycopg2.connect("host=35.225.226.208 dbname=course-list user=postgres password=1234567890")
+print(f"host={DB_HOST} port={DB_PORT} dbname={DB_NAME} user={DB_USER} password={DB_PASSWORD}")
+
+conn = psycopg2.connect(f"host={DB_HOST} port={DB_PORT} dbname={DB_NAME} user={DB_USER} password={DB_PASSWORD}")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'akslfIFD423Ah'

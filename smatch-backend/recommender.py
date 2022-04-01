@@ -5,7 +5,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction import text
 from sklearn.cluster import KMeans
 
-engine = create_engine("postgresql+psycopg2://postgres:1234567890@35.225.226.208/course-list")
+from params import DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME
+
+engine = create_engine(f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
 def get_all_courses(filters):
     query = "SELECT * FROM courselist WHERE category = %s AND price >= %s AND price <= %s AND duration >= %s AND duration <= %s AND level IN %s"
