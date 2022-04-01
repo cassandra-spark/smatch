@@ -9,7 +9,7 @@ from flask_migrate import Migrate
 import psycopg2
 import psycopg2.extras
 
-from .recommender import make_clusters
+from recommender import make_clusters
 
 conn = psycopg2.connect("host=35.225.226.208 dbname=course-list user=postgres password=1234567890")
 
